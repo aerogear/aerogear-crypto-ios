@@ -16,10 +16,26 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonCryptor.h>
-#import <CommonCrypto/CommonKeyDerivation.h>
 
+/**
+ * Utility class for random generation of cryptographically secure random numbers.
+ */
 @interface AGRandomGenerator : NSObject
-- (NSData *)generateSecret;
-- (NSString *)keyForPIN:(NSString *)PIN salt:(NSData *)salt;
+
+/**
+ * Generate secure random numbers with default size of 16 bytes.
+ *
+ * @return an NSData object filled with random bytes.
+ */
++ (NSData *)randomBytes;
+
+/**
+ * Generate secure random numbers with length bytes.
+ *
+ * @param key The length of the random bytes to generate.
+ *
+ * @return an NSData object filled with random bytes.
+ */
++ (NSData *)randomBytes:(size_t)length;
+
 @end

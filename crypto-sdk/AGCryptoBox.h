@@ -16,24 +16,40 @@
  */
 
 #import <Foundation/Foundation.h>
-#import <CommonCrypto/CommonCryptor.h>
 
-//typedef struct {
-//    CCOperation operation;
-//    CCAlgorithm algorithm;
-//} AGCryptoOptions;
-
+/**
+ * Main class for performing encrypt/decrypt operations. Currently it only supports symmetric
+ * key encryption but asymmetric support is currently in the works.
+ */
 @interface AGCryptoBox : NSObject
-//-(id)initWithOptions:(AGCryptoOptions)options withInvertedVector:(NSData*)invertedVector andKey:(NSData*)key error:(NSError**)error;
-//-(NSData*) encryptData:(NSData*)data error:(NSError**)error ;
 
-- (id)initWithKey:(NSString*)key initializationVector:(NSData*)vector;
+/**
+ * Default initializer.
+ *
+ * @param key The encryption key to use for the encryption/decryption.
+ *
+ * @return the AGCryptoBox object.
+ */
+- (id)initWithKey:(NSData *)key;
 
-- (NSData *)encrypt:(NSData *)data;
-- (NSData *)decrypt:(NSData *)data;
+/**
+ * Encrypts the data object passed in.
+ *
+ * @param data The data object to encrypt.
+ * @param IV   A randomly choosen value used as the initialization vector during encrypt.
+ *
+ * @return An NSData object that holds the encrypted(cipher) data.
+ */
+- (NSData *)encrypt:(NSData *)data IV:(NSData *)IV;
 
-@property(nonatomic, strong) NSString* key;
-@property(nonatomic, strong) NSData* initializationVector;
-//@property (nonatomic, readonly) CCCryptorRef cryptor;
-//@property (nonatomic, readonly) NSMutableData* encryptedData;
+/**
+ * Decrypts the data object(cipher) passed in.
+ *
+ * @param data The data object(cipher) to decrypt.
+ * @param IV   A randomly choosen value used as the initialization vector during decrypt.
+ *
+ * @return An NSData object that holds the decrypted data.
+ */
+- (NSData *)decrypt:(NSData *)data IV:(NSData *)IV;
+
 @end
