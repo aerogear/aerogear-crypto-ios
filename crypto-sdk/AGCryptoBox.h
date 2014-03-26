@@ -52,19 +52,21 @@
  *
  * @param data The data object to encrypt.
  * @param nonce the cryptographically secure pseudorandom number.
+ * @param error If an error occurs, upon return contains an `NSError` object that describes the problem.
  *
  * @return An NSData object that holds the encrypted(cipher) data.
  */
-- (NSData *)encrypt:(NSData *)data nonce:(NSData *)nonce;
+- (NSData *)encrypt:(NSData *)data nonce:(NSData *)nonce error:(NSError * __autoreleasing *)error;
 
 /**
  * Decrypts the data object provided given a nonce.
  *
  * @param data The data object(cipher) to decrypt.
  * @param nonce The cryptographically secure pseudorandom number.
+ * @param error If an error occurs, upon return contains an `NSError` object that describes the problem.
  *
  * @return An NSData object that holds the decrypted data.
  */
-- (NSData *)decrypt:(NSData *)data nonce:(NSData *)nonce;
+- (NSData *)decrypt:(NSData *)data nonce:(NSData *)nonce error:(NSError * __autoreleasing *)error;
 
 @end
