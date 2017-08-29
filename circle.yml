@@ -1,0 +1,28 @@
+machine:
+  xcode:
+    version: 9.0
+  environment:
+    XCODE_WORKSPACE: "crypto-sdk.xcworkspace"
+    XCODE_SCHEME: "crypto-sdk"
+    SIMULATOR: "iPhone 7"
+    OS: "11.0"
+
+general:
+  branches:
+    ignore:
+      - /FH-v.*/ # Ignore release branches
+
+test:
+  override:
+    - set -o pipefail &&
+      xcodebuild
+        CODE_SIGNING_REQUIRED=NO
+        CODE_SIGN_IDENTITY=
+        PROVISIONING_PROFILE=
+        -sdk iphonesimulator
+        -destination "platform=iOS Simulator,name=${SIMULATOR},OS=${OS}"
+        -workspace $XCODE_WORKSPACE
+        -scheme $XCODE_SCHEME
+        clean build test |
+      tee $CIRCLE_ARTIFACTS/xcode_raw.log |
+      xcpretty --color --report junit --output $CIRCLE_TEST_REPORTS/xcode/results.xml      
